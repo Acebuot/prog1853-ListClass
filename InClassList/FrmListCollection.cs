@@ -24,18 +24,19 @@ namespace InClassList
         {
             if (txtValue.Text == "")
             {
-                MessageBox.Show("ur pp smol", "kys psa");
+                MessageBox.Show("Please enter a value", "No Input");
             }
 
             else
             {
-                // values.Add(input); = txtValue.Text;
+                //extract as string value and add to list
                 string input = txtValue.Text;
                 values.Add(input);
 
-                //txtValue.Text = "";
+                //clear txtbox
                 txtValue.Clear();
 
+                //show user task was completed
                 MessageBox.Show(input + " added to index " + (values.Count - 1), "indexes start at 0");
                 txtValue.Focus();
             }
@@ -46,17 +47,18 @@ namespace InClassList
         {
             try
             {
+                //insert value at assigned index
+                
                 //values[int.Parse(txtIndex.Text)] = txtValue.Text;
                 string inputStr = txtValue.Text;
                 int inputInd = int.Parse(txtIndex.Text);
                 values.Insert(inputInd, inputStr);
 
-                // txtValue.Text = "";
-                // txtIndex.Text = "";
+                //clear txtboxes
                 txtValue.Clear();
                 txtIndex.Clear();
 
-                //unnecessary bs
+                //show user task is completed and refocus
                 MessageBox.Show("Value " + values[inputInd] + " has been added to index " + inputInd, "indexes start at 0");
                 txtValue.Focus();
             }
@@ -70,6 +72,7 @@ namespace InClassList
 
         private void BtnDisplay_Click(object sender, EventArgs e)
         {
+            //I didn't know about string interpolations lol
             StringBuilder damnSexy = new StringBuilder();
             for(int i = 0; i < values.Count; i++)
             {
@@ -77,12 +80,16 @@ namespace InClassList
             }
             MessageBox.Show(damnSexy.ToString());
 
+
+            ///This also worked IIRC but they wanted me to use stringbuilder
+
             //foreach (string temp in values)
             //{
             //    damnSexy.Append(temp + "\n");
             //}
             //MessageBox.Show(damnSexy.ToString());
 
+            //refocus
             txtValue.Focus();
         }
 
@@ -97,6 +104,8 @@ namespace InClassList
             }
             else
             {
+                //Where did my sense of humor go... Oklahoma hahahaha!
+                //this is just a messagebox that's supposed to show removal of that value didn't go through
                 MessageBox.Show("What is Oklahoma's state abbreviation?", "We Trippin", MessageBoxButtons.OK);
             }
 
@@ -115,19 +124,19 @@ namespace InClassList
         {
             try
             {
-            //values.RemoveAt(int.Parse(txtIndex.Text));
-            //messagebox
-            int index = int.Parse(txtIndex.Text);
-            MessageBox.Show("value of " + values[index] + " at index " + index + " will be removed", "indexes start at 0", MessageBoxButtons.OK);
-            values.RemoveAt(index);
+                //values.RemoveAt(int.Parse(txtIndex.Text));
+                //messagebox
+                int index = int.Parse(txtIndex.Text);
+                MessageBox.Show("value of " + values[index] + " at index " + index + " will be removed", "indexes start at 0", MessageBoxButtons.OK);
+                values.RemoveAt(index);
 
-            txtIndex.Clear();
+                txtIndex.Clear();
 
             }
 
             catch
             {
-                MessageBox.Show("Error 404: Your brain not found", "Bless your Soul");
+                MessageBox.Show("Removal of value at provided index failed", "pullout game weak");
             }
         }
 
@@ -135,7 +144,11 @@ namespace InClassList
         {
             try
             {
-                txtIndex.Text = values.IndexOf(txtValue.Text).ToString();
+                //if value not found
+                if (values.IndexOf(txtValue.Text) == -1)
+                    MessageBox.Show("No index found of that value", "Not found");
+                else 
+                    txtIndex.Text = values.IndexOf(txtValue.Text).ToString();
             }
             catch
             {
